@@ -1,0 +1,25 @@
+<launch>
+  <arg name="ROBOT_MODE" default="$(env ENV_ROBOT_MODE)"/>
+  <arg name="use_imu" default="true"/>
+  <arg name="use_laser" default="true"/>
+  <arg name="use_rgbd" default="true"/>
+  <arg name="use_odometry" default="true"/>
+
+  <!-- When ENV_ROBOT_MODE is "real", start sensor drivers. -->
+  <group if="$(eval 'real' in arg('ROBOT_MODE'))">
+    <!-- Laserscan -->
+    <include if="$(arg use_imu)" file="$(find rplidar_ros)/launch/rplidar.launch"/>
+
+    <!-- Imu -->
+    <include if="$(arg use_imu)" file="$(find imu_interface_broadcaster)/launch/imu.launch"/>
+    
+    <!-- Rgbd -->
+    <include if="$(arg use_rgbd)" file="$(find ep_bringup)/launch/ep_realsense.launch"/>
+    
+    <!-- Odometry -->
+    <node if="$(arg use_odometry)" name="ep_odometry_node" pkg="ep_bringup" type="odom_pub.py"/>
+    
+    <!-- base control node -->
+    <node pkg = "ep_bringup" type="ep_comm_node.py" name="ep_comm_node"/>
+  </group>
+</launch>

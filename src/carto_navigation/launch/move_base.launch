@@ -1,0 +1,23 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="method" default="teb" doc="method type [teb, eband, dwa]"/>
+  <!-- <arg name="cmd_vel_topic" default="/carto/cmd_vel" /> -->
+  <arg name="cmd_vel_topic" default="/cmd_vel" />
+  <arg name="odom_topic" default="/ep/odom" />
+
+  <!-- move_base -->
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param if="$(eval 'eband' in arg('method'))" name="base_local_planner" value="eband_local_planner/EBandPlannerROS" />
+    <param if="$(eval 'teb' in arg('method'))" name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+    <param if="$(eval 'dwa' in arg('method'))" name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>
+    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/move_base_params.yaml" command="load" />
+    <rosparam file="$(find carto_navigation)/param/$(arg method)/base_local_planner_params.yaml" command="load" />
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+    <remap from="odom" to="$(arg odom_topic)"/>
+  </node>
+</launch>

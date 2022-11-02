@@ -1,0 +1,15 @@
+<launch>
+  <arg name="ROBOT_MODE" default="$(env ENV_ROBOT_MODE)"/>
+
+  <!-- tf -->
+  <group if="$(eval 'sim' in arg('ROBOT_MODE'))">
+    <param name="robot_description" command="/opt/ros/noetic/lib/xacro/xacro --inorder '$(find ep_description)/urdf/ep_description_sim.xacro'" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  </group>
+  
+  <group if="$(eval 'real' in arg('ROBOT_MODE'))">
+    <param name="robot_description" command="/opt/ros/noetic/lib/xacro/xacro --inorder '$(find ep_description)/urdf/ep_description.xacro'" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  </group>
+  
+</launch>

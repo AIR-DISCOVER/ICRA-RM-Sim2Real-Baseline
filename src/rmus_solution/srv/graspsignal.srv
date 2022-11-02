@@ -1,0 +1,5 @@
+uint8 mode
+string call
+---
+bool res
+string response

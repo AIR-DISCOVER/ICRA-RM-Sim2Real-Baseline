@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="use_joy_stick" default="true"/>
+  <arg name="open_rviz" default="true"/>
+  <arg name="open_reconfigure" default="false"/>
+  <arg name="map_file" default="$(find carto_navigation)/maps/map.yaml"/>
+
+  <include file="$(find ira_laser_tools)/launch/merge_rgbd_lidar_scan.launch"/>
+
+  <!-- joy control -->
+  <include if="$(arg use_joy_stick)" file="$(find ep_teleop)/launch/joy_stick.launch"/>
+
+  <!-- rviz -->
+  <node if="$(arg open_rviz)" pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find carto_navigation)/rviz/navigation.rviz"/>
+          
+  <!-- robot_description -->
+  <include file="$(find ep_description)/launch/ep_description.launch"/>
+  
+  <!-- bringup -->
+  <include file="$(find ep_bringup)/launch/bringup.launch"/>
+  
+  <!-- rqt_reconfigure -->
+  <node if="$(arg open_reconfigure)" name="rqt_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- Cartographer localization -->
+  <include file="$(find carto_navigation)/launch/cartographer_localization.launch" />
+  
+  <!-- move_base -->
+  <include file="$(find carto_navigation)/launch/move_base.launch"/>
+
+</launch>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- depthimage to laserscan -->
+  <node name="depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" args="">
+    <remap from="image"       to="/camera/aligned_depth_to_color/image_raw"/> 
+    <remap from="camera_info" to="/camera/aligned_depth_to_color/camera_info"/>
+    <remap from="scan" to="/camera/scan"/>
+    <param name="scan_height"     type="int"    value="1"/> <!-- default: 1 pixel. Number of pixel rows used to generate laser scan. -->
+    <param name="scan_time"       type="double" value="0.033"/> <!-- default:0.033, 30 FPS . Time between scans. -->
+    <param name="range_min"       type="double" value="0.1"/> <!--default:0.45m. Ranges less than this are considered -Inf. -->
+    <param name="range_max"       type="double" value="5.0"/> <!--default: 10m. Ranges more than this are considered +Inf. -->
+    <param name="output_frame_id" type="str"    value="camera_aligned_depth_to_color_frame"/> <!--default: camera_depth_frame. Frame id of the laser scan. -->
+  </node>
+
+  <!-- merge two scan -->
+	<node pkg="ira_laser_tools" name="laserscan_multi_merger" type="laserscan_multi_merger" output="screen">
+	<param name="destination_frame" value="base_link"/>
+	<param name="cloud_destination_topic" value="/merged_cloud"/>
+	<param name="scan_destination_topic" value="/scan_multi"/>
+	<param name="laserscan_topics" value ="/rplidar/scan /camera/scan" /> <!-- LIST OF THE LASER SCAN TOPICS TO SUBSCRIBE -->
+	<param name="angle_min" value="-2.1"/>
+	<param name="angle_max" value="2.1"/>
+	<param name="angle_increment" value="0.008267348632216454"/>
+	<param name="scan_time" value="0.033"/>
+  <!-- <param name="time_increment" value="0.0001315789413638413"/> -->
+	<param name="range_min" value="0.1"/>
+	<param name="range_max" value="12.0"/>
+	</node>
+
+
+</launch>

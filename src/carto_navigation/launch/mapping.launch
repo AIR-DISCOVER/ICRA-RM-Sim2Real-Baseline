@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="use_joy_stick" default="true"/>
+  <arg name="open_rviz" default="true"/>
+
+  <include file="$(find ira_laser_tools)/launch/merge_rgbd_lidar_scan.launch"/>
+  
+  <!-- rviz -->
+  <node if="$(arg open_rviz)" pkg="rviz" type="rviz" name="rviz" required="true"
+          args="-d $(find carto_navigation)/rviz/mapping.rviz"/>
+          
+  <!-- robot_description -->
+  <include file="$(find ep_description)/launch/ep_description.launch"/>
+  
+  <!-- bringup -->
+  <include file="$(find ep_bringup)/launch/bringup.launch"/>
+  
+  <!-- joy control -->
+  <include if="$(arg use_joy_stick)" file="$(find ep_teleop)/launch/joy_stick.launch"/>
+
+  <!-- Cartographer -->
+  <include file="$(find carto_navigation)/launch/cartographer.launch" />
+  
+</launch>
