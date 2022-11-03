@@ -1,6 +1,6 @@
 #!/bin/bash
-SERVER_IMAGE=${SERVER_IMAGE:-docker.discover-lab.com:55555/rm-sim2real/server:latest}
-CLIENT_IMAGE=${CLIENT_IMAGE:-docker.discover-lab.com:55555/rm-sim2real/client:latest}
+SERVER_IMAGE=${SERVER_IMAGE:-tb5zhh/icra-2023-server:latest}
+CLIENT_IMAGE=${CLIENT_IMAGE:-tb5zhh/icra-2023-client:latest}
 
 xhost +
 
@@ -17,10 +17,9 @@ docker run -dit --rm --name sim-server --network net-sim \
 	-e LIBGL_ALWAYS_SOFTWARE=1 \
 	-e NVIDIA_DRIVER_CAPABILITIES=all \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	$SERVER_IMAGE
+	$SERVER_IMAGE 
 
-# Wait until the server is up
-sleep 15
+sleep 10
 
 docker run -it --rm --name client --network net-sim \
 	--cpus=5.6 -m 8192M \
