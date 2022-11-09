@@ -170,7 +170,31 @@ A `Dockerfile` is included in this repository. To build a newer client image, ex
 docker build . -t client-custom:latest
 ```
 
-If additional apt and pip requirements are needed in the newer image, please modify `Dockerfile` to obtain these packages at compile time. Also, append additional source files in `Dockerfile` and build the packages accordingly.
+By default, the codes for controling are located in `src/`. When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
+
+Inside the image, `/opt/ep_ws` is the ROS workspace directory. Later in the dockerfile, `catkin_make` is run in this directory.
+
+
+The entry for the client is fixed to `start.sh` in the root of repo. When the image is building, this script is copied to `/opt/start.sh` and serves as the main entry for the client. The content of this file can be changed arbitrarily to suit the requirements, but the name of the script should not be changed.
+
+If additional apt and pip requirements are needed in the newer image, please modify `Dockerfile` to obtain these packages at compile time.
+
+Change these lines to add more `apt` dependencies:
+
+```Dockerfile
+# Install extra dependencies with apt
+RUN apt-get update && \
+     apt-get install -y --no-install-recommends \
+     ros-noetic-depthimage-to-laserscan ros-noetic-map-server python3-tf-conversions ros-noetic-global-planner && \
+     rm -rf /var/lib/apt/lists/* && apt-get clean
+```
+
+Change these lines to add more `pip` dependencies:
+
+```Dockerfile
+# Install extra dependencies with pip
+RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple scipy
+```
 
 ### Submit the image
 
