@@ -1,0 +1,23 @@
+
+base_global_planner: "global_planner/GlobalPlanner"
+#base_local_planner: "dwa_local_planner/DWAPlannerROS"
+#是否关闭costmaps节点
+shutdown_costmaps: false
+#控制周期和发布速度指令的频率/HZ
+controller_frequency: 5.0
+#等待规划的最长时间
+planner_patience: 5.0
+#等待指令的最长时间
+controller_patience: 3.0
+#障碍物距离
+#global planning运行频率
+planner_frequency: 2.0 # 5.0
+#recovery恢复行为恢复等待超时时间
+oscillation_timeout: 3.0 # 10.0
+#recovery恢复有效移动距离
+oscillation_distance: 0.1
+
+recovery_behavior_enabled: true
+recovery_behaviors: [{name: conservative_reset, type: clear_costmap_recovery/ClearCostmapRecovery}, {name: rotate_recovery, type: rotate_recovery/RotateRecovery}, {name: aggressive_reset, type: clear_costmap_recovery/ClearCostmapRecovery}] #default
+conservative_reset_dist: 3.0
+

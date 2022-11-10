@@ -1,0 +1,18 @@
+<launch>
+
+    <!-- robot_description -->
+    <include file="$(find ep_description)/launch/ep_description.launch" />
+
+    <!-- bringup -->
+    <include file="$(find ep_bringup)/launch/bringup.launch" />
+
+    <!-- publish the correct camera coordinate -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="camera_aligned_depth_to_color_frame_correct"
+        args="0 0 0 -0.5 0.5 -0.5 0.5  camera_aligned_depth_to_color_frame   camera_aligned_depth_to_color_frame_correct" />
+
+    <!-- manipulater -->
+    <node pkg="rmus_solution" type="manipulater.py" name="shadow_trimer" output="screen"></node>
+
+    <!-- img_processor -->
+    <node pkg="rmus_solution" type="img_processor.py" name="img_process_node" output="screen"></node>
+</launch>

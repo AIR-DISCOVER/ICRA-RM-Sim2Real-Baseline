@@ -1,0 +1,30 @@
+footprint: [[-0.2, -0.12], [-0.2, 0.12], [0.2, 0.12], [0.2, -0.12]] # 2D shape of the robot
+#robot_radius: 0.5
+obstacle_layer:
+  enabled: true
+  combination_method: 1
+  track_unknown_space: true
+  obstacle_range: 2.5
+  raytrace_range: 5.0
+  observation_sources: scan
+  scan:
+    {
+      sensor_frame: laser_link,
+      data_type: LaserScan,
+      topic: /rplidar/scan,
+      marking: true,
+      clearing: true,
+    }
+
+inflation_layer:
+  enabled: true
+  cost_scaling_factor: 2.58
+  inflation_radius: 0.5
+
+static_layer:
+  enabled: true
+  track_unknown_space: true
+
+resolution: 0.05
+
+map_type: costmap

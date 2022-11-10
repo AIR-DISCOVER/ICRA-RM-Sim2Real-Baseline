@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="configuration_basename" default="cartographer_2d_localization.lua" />
+  <arg name="map_name" default="map" />
+  <arg name="pbstream_file" value="$(find carto_navigation)/maps/$(arg map_name).pbstream" />
+  <arg name="configuration_directory" default="$(find carto_navigation)/param" />
+  <node name="cartographer_node" pkg="cartographer_ros"
+    type="cartographer_node" args="
+          -configuration_directory
+              $(arg configuration_directory)
+          -configuration_basename $(arg configuration_basename)
+          -load_state_filename $(arg pbstream_file) "
+  >
+
+    <remap from="scan" to="/scan_multi" />
+
+    <remap from="imu" to="/imu/data_raw" />
+    <remap from="odom" to="/ep/odom" />
+  </node>
+</launch>

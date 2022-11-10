@@ -1,0 +1,6 @@
+image: /opt/ep_ws/src/rmus_solution/carto_navigation/maps/map.pgm
+resolution: 0.05
+origin: [-0.743435, -1.59146, 0.0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.196

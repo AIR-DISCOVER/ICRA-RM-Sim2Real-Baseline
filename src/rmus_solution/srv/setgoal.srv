@@ -1,0 +1,5 @@
+int32 point
+string call
+---
+bool res
+string response

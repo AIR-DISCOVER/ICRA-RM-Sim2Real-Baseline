@@ -1,0 +1,13 @@
+<launch>
+
+    <arg name="rviz" default="true" />
+
+    <!-- cartographer navigation -->
+    <include file="$(find carto_navigation)/launch/navigation.launch">
+        <arg name="open_rviz" value="$(arg rviz)" />
+    </include>
+
+    <!-- navigation controller -->
+    <node pkg="rmus_solution" type="navi_control.py" name="shadow_router" output="screen"></node>
+
+</launch>

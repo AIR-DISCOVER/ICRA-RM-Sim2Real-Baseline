@@ -1,0 +1,29 @@
+footprint: [[-0.16, -0.12], [-0.16, 0.12], [0.16, 0.12], [0.16, -0.12]] # 2D shape of the robot (little bit smaller than the real robot)
+
+plugins:
+    - {name: static_layer,    type: "costmap_2d::StaticLayer"}
+    - {name: obstacle_layer,  type: "costmap_2d::ObstacleLayer"}
+    - {name: inflation_layer, type: "costmap_2d::InflationLayer"} 
+
+# should be declared after the above declaration for plugins 
+obstacle_layer: 
+  enabled: true
+  combination_method: 1
+  track_unknown_space: true
+  obstacle_range: 5 
+  raytrace_range: 5
+  min_obstacle_height: -0.5
+  observation_sources: merged_rgbd_lidar_scan
+  merged_rgbd_lidar_scan: {data_type: LaserScan, topic: /scan_multi, marking: true, clearing: true, inf_is_valid: true}
+
+inflation_layer: 
+  enabled: true
+
+static_layer: 
+  enabled: true
+  
+resolution: 0.05
+
+
+
+
