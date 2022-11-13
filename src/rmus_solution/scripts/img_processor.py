@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 import rospy
 from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
 from geometry_msgs.msg import Pose
 from std_msgs.msg import UInt8MultiArray
+from sensor_msgs.msg import Image, CameraInfo
 from rmus_solution.srv import switch, switchResponse
 
 import cv2
@@ -44,6 +44,17 @@ class Processor:
                 break
             except:
                 rospy.logwarn("Waiting for message /camera/color/image_raw.")
+                continue
+
+        while not rospy.is_shutdown():
+            try:
+                camerainfo = rospy.wait_for_message("/camera/color/camera_info", CameraInfo, timeout=5.0)
+                rospy.loginfo("Get topic /camera/color/camera_info.")
+                self.camera_matrix = np.array(camerainfo.K, "double").reshape((3,3))
+                rospy.loginfo("camera_matrix :\n {}".format(self.camera_matrix))                
+                break
+            except:
+                rospy.logwarn("Waiting for message /camera/color/camera_info.")
                 continue
 
         try:
@@ -116,7 +127,7 @@ class Processor:
     def get_gameinfo(self, image):
         gameinfo = [0, 0, 0]
         id_list, quads_list, area_list, tvec_list, rvec_list, _, _ = marker_detection(
-            image, area_filter_size=150, verbose=self.verbose, exchange_station=True
+            image, camera_matrix=self.camera_matrix, area_filter_size=150, verbose=self.verbose, exchange_station=True
         )
         number_dict = {}
         for id, quads in zip(id_list, quads_list):
@@ -153,6 +164,7 @@ class Processor:
                 _,
             ) = marker_detection(
                 self.image,
+                camera_matrix=self.camera_matrix,
                 template_ids=[blockid],
                 area_filter_size=1200,
                 verbose=self.verbose,
@@ -169,6 +181,7 @@ class Processor:
                 minpoints_list,
             ) = marker_detection(
                 self.image,
+                camera_matrix=self.camera_matrix,
                 template_ids=[6, 7, 8],
                 area_filter_size=1200,
                 verbose=self.verbose,

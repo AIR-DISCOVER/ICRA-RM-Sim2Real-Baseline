@@ -88,6 +88,8 @@ By default if the launching is successful, three `image_view` windows and one `c
 
 ![demo-carto](assets/launch-carto.png)
 
+Change the CPU and RAM parameter for the client node in `scripts/launch.sh` according to the host machine, to meet the performance of robot on board NUC unit. 
+
 ### Stop running containers
 
 This script will stop all running containers and remove the network right away:
@@ -173,7 +175,6 @@ docker build . -t client-custom:latest
 By default, the codes for controling are located in `src/`. When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
 
 Inside the image, `/opt/ep_ws` is the ROS workspace directory. Later in the dockerfile, `catkin_make` is run in this directory.
-
 
 The entry for the client is fixed to `start.sh` in the root of repo. When the image is building, this script is copied to `/opt/start.sh` and serves as the main entry for the client. The content of this file can be changed arbitrarily to suit the requirements, but the name of the script should not be changed.
 
