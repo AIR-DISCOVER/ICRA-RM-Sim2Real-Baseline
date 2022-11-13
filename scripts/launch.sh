@@ -1,16 +1,17 @@
 #!/bin/bash
-SERVER_IMAGE=${SERVER_IMAGE:-tb5zhh/icra-2023-server:v5.1.0.1112}
-CLIENT_IMAGE=${CLIENT_IMAGE:-tb5zhh/icra-2023-client:latest}
+SERVER_IMAGE=${SERVER_IMAGE:-tb5zhh/icra-2023-server:latest}
+CLIENT_IMAGE=${CLIENT_IMAGE:-test-cli-1113.1:latest}
+CLI_EXE=$@
 
 xhost +
 
-#docker pull $SERVER_IMAGE
+docker pull $SERVER_IMAGE
 
 docker network create net-sim
 
 docker run -dit --rm --name ros-master --network net-sim ros:noetic-ros-core-focal roscore
 
-docker run -it --rm --name sim-server --network net-sim \
+docker run -dit --rm --name sim-server --network net-sim \
 	--gpus all \
 	-e ROS_MASTER_URI=http://ros-master:11311 \
 	-e DISPLAY=$DISPLAY \
@@ -21,7 +22,6 @@ docker run -it --rm --name sim-server --network net-sim \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	$SERVER_IMAGE 
 
-<<<<<<< HEAD
 sleep 10
 
 docker run -it --rm --name client --network net-sim \

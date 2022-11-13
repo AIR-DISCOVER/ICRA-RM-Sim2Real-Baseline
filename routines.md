@@ -32,7 +32,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 
    ```shell
    MODE=9
-   scripts/shell.sh rosservice call /image/processor_switch_mode "mode: ${MODE}"
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: ${MODE}"
    ```
 
    Note that, the command can be automatically completed by pressing `Tab`.
@@ -56,7 +56,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 4. Stop the service by calling
 
    ```shell
-   scripts/shell.sh rosservice call /image_processor_switch_mode "mode: 0"
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 0"
    ```
 
 ## Grasp a Cube
@@ -74,7 +74,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 3. Invoke vision service to locate the cube
    
    ```shell
-   scripts/shell.sh rosservice call /image_processor_switch_mode "mode: 3"
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 5"
    ```
 
    > The parameter `3` corresponds to the digit 3 on the cube to grasp.
@@ -87,7 +87,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 
    ```shell
    MODE=1
-   scripts/shell.sh rosservice call /let_manipulater_work "mode: ${MODE}
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /let_manipulater_work "mode: ${MODE}
    call: ''"
    ```
    
@@ -113,7 +113,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 6. Find the target box to place the grasped cube:
 
    ```shell
-   scripts/shell.sh rosservice call /image_processor_switch_mode "mode: 7"
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 7"
    ```
 
    > `6`, `7`, `8` correspond to `B`, `O`, `X` at the checking station
@@ -123,7 +123,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 7. Place the cube in the box
    
    ```shell
-   rosservice call /let_manipulater_work "mode: 2
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /let_manipulater_work "mode: 2
    call: ''"
    ```
 
@@ -134,5 +134,5 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 8. Stop the service
 
    ```shell
-   roslaunch rmus_solution start_game.launch
+   docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 0"
    ```

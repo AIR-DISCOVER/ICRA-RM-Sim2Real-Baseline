@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="ep_teleop" type="joy_driver" name="joy_driver_node"/>
+  <node pkg="ep_teleop" type="control_teleop_node" name="control_teleop_node">
+    <param name="max_linear_velocity" value="0.3"/>
+    <param name="max_angular_velocity" value="0.5"/>
+  </node>
+
+</launch>

@@ -2,15 +2,9 @@
 # -*- coding: utf-8 -*-
 import rospy
 from cv_bridge import CvBridge
-<<<<<<< HEAD
-from sensor_msgs.msg import Image
-from geometry_msgs.msg import Pose
-from std_msgs.msg import UInt8MultiArray
-=======
 from geometry_msgs.msg import Pose
 from std_msgs.msg import UInt8MultiArray
 from sensor_msgs.msg import Image, CameraInfo
->>>>>>> master
 from rmus_solution.srv import switch, switchResponse
 
 import cv2
@@ -52,8 +46,6 @@ class Processor:
                 rospy.logwarn("Waiting for message /camera/color/image_raw.")
                 continue
 
-<<<<<<< HEAD
-=======
         while not rospy.is_shutdown():
             try:
                 camerainfo = rospy.wait_for_message("/camera/color/camera_info", CameraInfo, timeout=5.0)
@@ -65,7 +57,6 @@ class Processor:
                 rospy.logwarn("Waiting for message /camera/color/camera_info.")
                 continue
 
->>>>>>> master
         try:
             if self.verbose:
                 self.vis_thread = Thread(target=self.visualization)
@@ -136,11 +127,7 @@ class Processor:
     def get_gameinfo(self, image):
         gameinfo = [0, 0, 0]
         id_list, quads_list, area_list, tvec_list, rvec_list, _, _ = marker_detection(
-<<<<<<< HEAD
-            image, area_filter_size=150, verbose=self.verbose, exchange_station=True
-=======
             image, camera_matrix=self.camera_matrix, area_filter_size=150, verbose=self.verbose, exchange_station=True
->>>>>>> master
         )
         number_dict = {}
         for id, quads in zip(id_list, quads_list):
@@ -177,10 +164,7 @@ class Processor:
                 _,
             ) = marker_detection(
                 self.image,
-<<<<<<< HEAD
-=======
                 camera_matrix=self.camera_matrix,
->>>>>>> master
                 template_ids=[blockid],
                 area_filter_size=1200,
                 verbose=self.verbose,
@@ -197,10 +181,7 @@ class Processor:
                 minpoints_list,
             ) = marker_detection(
                 self.image,
-<<<<<<< HEAD
-=======
                 camera_matrix=self.camera_matrix,
->>>>>>> master
                 template_ids=[6, 7, 8],
                 area_filter_size=1200,
                 verbose=self.verbose,

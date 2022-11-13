@@ -23,6 +23,9 @@ RUN apt-get update && \
 # Install extra dependencies with pip
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple scipy
 
+# Patch for keyboard
+ADD ep_teleop /opt/ep_ws/src/ep_teleop
+
 # Make client package
 RUN source /opt/workspace/devel_isolated/setup.bash && catkin_make install --use-ninja -DSETUPTOOLS_DEB_LAYOUT=OFF
 ENV ENV_ROBOT_MODE=sim
