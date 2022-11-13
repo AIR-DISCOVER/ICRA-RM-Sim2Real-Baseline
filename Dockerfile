@@ -29,4 +29,5 @@ ENV ENV_ROBOT_MODE=sim
 
 # Add start script
 ADD start.sh /opt/start.sh
+RUN echo "source /opt/ep_ws/devel/setup.bash" >> ~/.bashrc
 CMD /opt/ros/noetic/env.sh /opt/ep_ws/devel/env.sh /opt/start.sh

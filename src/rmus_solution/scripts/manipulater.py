@@ -116,7 +116,11 @@ class manipulater:
             flag = 0
             y_threshold_p = 0.018
             y_threshold_n = 0.018
+<<<<<<< HEAD
             x_dis_tar = 0.35
+=======
+            x_dis_tar = 0.30
+>>>>>>> master
             while not rospy.is_shutdown():
                 target_marker_pose = self.current_marker_poses
                 if target_marker_pose is None:
@@ -173,9 +177,15 @@ class manipulater:
                     pose.position.x = 0.19
                     pose.position.y = -0.08
                     self.arm_position_pub.publish(pose)
+<<<<<<< HEAD
                     rospy.sleep(1.5)
                     self.sendBaseVel([0.25, 0.0, 0.0])
                     rospy.sleep(0.4)
+=======
+                    rospy.sleep(1.0)
+                    # self.sendBaseVel([0.25, 0.0, 0.0])
+                    # rospy.sleep(0.3)
+>>>>>>> master
                     self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.loginfo("Place: reach the goal for placing.")
                     break
@@ -205,6 +215,10 @@ class manipulater:
             flag = 0
             y_threshold_p = 0.018
             y_threshold_n = 0.018
+<<<<<<< HEAD
+=======
+            x_dis_tar = 0.30
+>>>>>>> master
 
             while not rospy.is_shutdown():
                 target_marker_pose = self.current_marker_poses
@@ -216,6 +230,7 @@ class manipulater:
                 )
                 cmd_vel = [0.0, 0.0, 0.0]
 
+<<<<<<< HEAD
                 if (target_pos[0] - 0.385) > 0.1:
                     cmd_vel[0] = 0.14
                 elif (target_pos[0] - 0.385) < -0.1:
@@ -223,6 +238,15 @@ class manipulater:
                 elif (target_pos[0] - 0.385) > 0.02:
                     cmd_vel[0] = 0.12
                 elif (target_pos[0] - 0.385) < -0.02:
+=======
+                if (target_pos[0] - x_dis_tar) > 0.1:
+                    cmd_vel[0] = 0.14
+                elif (target_pos[0] - x_dis_tar) < -0.1:
+                    cmd_vel[0] = -0.14
+                elif (target_pos[0] - x_dis_tar) > 0.02:
+                    cmd_vel[0] = 0.12
+                elif (target_pos[0] - x_dis_tar) < -0.02:
+>>>>>>> master
                     cmd_vel[0] = -0.12
 
                 if (target_pos[1] - 0.0) > 0.05 or (target_pos[1] - 0.0) < -0.05:
@@ -242,17 +266,28 @@ class manipulater:
 
                 cmd_vel[2] = 0
                 self.sendBaseVel(cmd_vel)
+<<<<<<< HEAD
                 if np.abs(target_pos[0] - 0.385) <= 0.02 and (
+=======
+                if np.abs(target_pos[0] - x_dis_tar) <= 0.02 and (
+>>>>>>> master
                     (target_pos[1] - 0.0) <= y_threshold_p
                     and (0.0 - target_pos[1]) <= y_threshold_n
                 ):
                     rospy.loginfo("Trim well in the all dimention, going open loop")
                     self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.sleep(1.0)
+<<<<<<< HEAD
                     self.sendBaseVel([0.25, 0.0, 0.0])
                     rospy.sleep(0.3)
                     self.sendBaseVel([0.25, 0.0, 0.0])
                     rospy.sleep(0.3)
+=======
+                    # self.sendBaseVel([0.25, 0.0, 0.0])
+                    # rospy.sleep(0.3)
+                    # self.sendBaseVel([0.25, 0.0, 0.0])
+                    # rospy.sleep(0.3)
+>>>>>>> master
                     self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.loginfo("Place: reach the goal for placing.")
                     break
@@ -319,3 +354,7 @@ if __name__ == "__main__":
     rospy.init_node("manipulater_node", anonymous=True)
     rter = manipulater()
     rospy.spin()
+<<<<<<< HEAD
+=======
+
+>>>>>>> master

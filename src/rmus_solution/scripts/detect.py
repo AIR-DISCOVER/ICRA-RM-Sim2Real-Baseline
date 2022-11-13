@@ -106,7 +106,11 @@ def preprocessing(frame):
                 np.logical_or(hsvImg[:, :, 0] <= 10, hsvImg[:, :, 0] >= 150),
                 hsvImg[:, :, 1] >= 60,
             ),
+<<<<<<< HEAD
             hsvImg[:, :, 2] >= 75,
+=======
+            hsvImg[:, :, 2] >= 50,
+>>>>>>> master
         )
         * 255
     ).astype(np.uint8)
@@ -114,7 +118,11 @@ def preprocessing(frame):
     return boolImg, hsvImg
 
 
+<<<<<<< HEAD
 def square_detection(grayImg, area_filter_size=30, height_range=(-10000.0, 200000.0)):
+=======
+def square_detection(grayImg, camera_matrix, area_filter_size=30, height_range=(-10000.0, 200000.0)):
+>>>>>>> master
     projection_points = True
     quads = []
     quads_f = []
@@ -176,6 +184,7 @@ def square_detection(grayImg, area_filter_size=30, height_range=(-10000.0, 20000
                 (0 - 0.5 * block_size, block_size - 0.5 * block_size, 0.0),
             ]
         )
+<<<<<<< HEAD
         camera_matrix = np.array(
             [
                 (617.3054000792732, 0.0, 424.0),
@@ -188,6 +197,20 @@ def square_detection(grayImg, area_filter_size=30, height_range=(-10000.0, 20000
             ],
             dtype="double",
         )
+=======
+        # camera_matrix = np.array(
+        #     [
+        #         (617.3054000792732, 0.0, 424.0),
+        #         (
+        #             0.0,
+        #             608.3911743164062,
+        #             243.64712524414062,
+        #         ),
+        #         (0, 0, 1),
+        #     ],
+        #     dtype="double",
+        # )
+>>>>>>> master
         dist_coeffs = np.array([[0, 0, 0, 0]], dtype="double")
         for quad in quads_f:
             model_image = np.array(
@@ -310,6 +333,10 @@ def classification(frame, quads, template_ids=range(1, 9)):
 
 def marker_detection(
     frame,
+<<<<<<< HEAD
+=======
+    camera_matrix,
+>>>>>>> master
     template_ids=range(1, 9),
     area_filter_size=30,
     seg_papram=None,
@@ -324,7 +351,11 @@ def marker_detection(
     else:
         boolImg, _ = preprocessing(frame)
     quads, tvec_list, rvec_list, area_list, ori_quads = square_detection(
+<<<<<<< HEAD
         boolImg, area_filter_size=area_filter_size, height_range=height_range
+=======
+        boolImg, camera_matrix, area_filter_size=area_filter_size, height_range=height_range
+>>>>>>> master
     )
     quads_ID, minpoints_list, wrapped_img_list = classification(
         frame, quads, template_ids=template_ids
