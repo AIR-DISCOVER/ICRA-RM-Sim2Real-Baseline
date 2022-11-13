@@ -155,6 +155,78 @@ Control reference:
 scripts/judging.sh
 ```
 
+### Set the positions of cubes
+
+We provide ROS interfaces for manually placing the cubes in the simulated environment.
+By default, the cubes are arranged in the same way of [RM Sim2Real 2022](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real).
+
+To place the cubes at random positions: 
+
+```shell
+rostopic pub -1 /reset geometry_msgs/Point "x: 0.0
+y: 0.0
+z: 0.0"
+```
+
+![random_pose](./assets/random_pose.png)
+
+To place the cubes at manually specified positions: (The `PoseArray` should have 5 entries)
+
+```shell
+rostopic pub -1 /pose_set geometry_msgs/PoseArray "header:
+  seq: 0.0
+  stamp:.0
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+poses: 3.0
+- position:
+    x: 3.05
+    y: 0.0ion:
+    z: 3.0
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0:
+    w: 1.0
+- position:
+    x: 3.0
+    y: 0.0ion:
+    z: 3.15
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0:
+    w: 1.0
+- position:
+    x: 3.05
+    y: 0.0ion:
+    z: 3.3
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0:
+    w: 1.0
+- position:
+    x: 3.0
+    y: 0.0ion:
+    z: 3.45
+  orientation:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+- position:
+    x: 3.0
+    y: 0.0
+    z: 3.6
+  orientation:
+    x: 0.0
+    w: 1.0"
+```
+
+![specified_pose](./assets/specified_pose.png)
+
 ### Use Visual Studio Code to debug
 
 Install the extension for remote developing of the docker container (ms-vscode-remote.remote-containers):
@@ -227,7 +299,7 @@ You may find the testing result of your image [here](http://103.242.175.254:1101
 
 ## Routines
 
-To invoke routines of indivisual components of the baseline, see [routines.md](./routines.md)
+To invoke routines of indivisual components of the baseline, see [routines.md](./routines.md).
 
 ## Reference
 
