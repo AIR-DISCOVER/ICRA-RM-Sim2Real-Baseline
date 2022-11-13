@@ -1,4 +1,4 @@
-# ICRA Robomaster Sim2real Challenge Client Baseline
+# ICRA Robomaster Sim2Real Challenge Client Baseline
 
 ## Hardware - EP
 
@@ -55,7 +55,7 @@ In this repo, we provide a baseline method for this task. A functional image can
 
 Note that, due to the hardware resource constraints on EP, launched client should be limited to use less than 6 CPUs and 8192MB memory. These constraints are imposed by `--cpus=5.6 -m 8192M` arguments in `launch.sh`. Do not remove them during developing, or online testing performance may be significantly lower than local testing.
 
-The baseline image (and potentially the images you built) is based on the base image `docker.discover-lab.com:55555/rm-sim2real/client-base:v1.4.0`. Basic functional units (e.g. [keyborad control]()) is included in this base image. Please refer to [this repo](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2real-Client) for further information on the base image.
+The baseline image (and potentially the images you built) is based on the base image `docker.discover-lab.com:55555/rm-sim2real/client-base:v1.4.0`. Basic functional units (e.g. [keyborad control]()) is included in this base image. Please refer to [this repo](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real-Client) for further information on the base image.
 
 ## How-to
 
@@ -82,7 +82,19 @@ By default if the launching is successful, three `image_view` windows and one `c
 
 ![demo-carto](assets/launch-carto.png)
 
-### Stop running containers
+### Launch server and create client container without running
+
+If you wish to launch the simulation server and then create the client container without automatically starting the game, execute `launch.sh` with additional start-point.
+
+This is typically used for debugging before launching indivivual components of the client:
+
+```shell
+scripts/launch.sh bash
+```
+
+The visualization output should be the same as the [part above](#launch-server-and-client) (since the server is launched in the same way).
+
+### Stop server and client
 
 This script will stop all running containers and remove the network right away:
 
@@ -90,7 +102,7 @@ This script will stop all running containers and remove the network right away:
 scripts/halt.sh
 ```
 
-### Open the shell of the client
+### Create a shell for the client
 
 This script will open a shell inside the client:
 
@@ -127,13 +139,15 @@ Control reference:
 * `J`: Move horizontally to left
 * `L`: Move horizontally to right
 * `k`: Stop moving
+* `q`: Increase robot speed
+* `z`: Decrease robot speed
 * `1`: Lower robot arm
 * `2`: Lift robot arm
 * `3`: Close gripper
 * `4`: Open gripper
 * `Ctrl + C`: Stop listening keyboard inputs
 
-### Display the timer of placing cubes
+### Display the timer for placing cubes
 
 `judging.sh` invokes `rostopic echo` which prints the `/judgement/markers_time` on the screen:
 
@@ -192,7 +206,7 @@ RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple scipy
 
 ### Submit the image
 
-Submitting images requires registering for the ICRA Robomaster Sim2real challenges. Please [sign up]() before proceeding.
+Submitting images requires registering for the ICRA Robomaster Sim2Real challenges. Please [sign up]() before proceeding.
 
 If you wish to submit the image for online testing, please first tag your built image as:
 
@@ -210,6 +224,10 @@ docker push docker.discover-lab.com:55555/[username]/client:[tag]
 ```
 
 You may find the testing result of your image [here](http://103.242.175.254:11011).
+
+## Routines
+
+To invoke routines of indivisual components of the baseline, see [routines.md](./routines.md)
 
 ## Reference
 

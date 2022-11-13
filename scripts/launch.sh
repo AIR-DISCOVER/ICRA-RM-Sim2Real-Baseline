@@ -1,6 +1,7 @@
 #!/bin/bash
 SERVER_IMAGE=${SERVER_IMAGE:-tb5zhh/icra-2023-server:latest}
 CLIENT_IMAGE=${CLIENT_IMAGE:-tb5zhh/icra-2023-client:latest}
+CLI_EXE=$@
 
 xhost +
 
@@ -29,4 +30,4 @@ docker run -it --rm --name client --network net-sim \
 	-e NO_AT_BRIDGE=1 \
 	-e LIBGL_ALWAYS_SOFTWARE=1 \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	$CLIENT_IMAGE
+	$CLIENT_IMAGE $CLI_EXE
