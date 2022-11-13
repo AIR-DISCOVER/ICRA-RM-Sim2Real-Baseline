@@ -1,5 +1,60 @@
 # Reference
 
+## Robot Model
+ 
+ 
+The discription file for the sensor locations is located at
+
+`~/ep_ws/src/ep_description/urdf/ep_description.xacro`
+
+The user should test the development in the `client` image at first.
+<!-- 选手在实际开发过程中需要先在client镜像中先运行 -->
+
+To show the static TF tree:
+
+```bash
+scripts/shell.sh roslaunch ep_descreption ep_description.launch
+```
+
+<!-- # 2. Hardware interface -->
+
+![EP-Robot-tf_tree](./assets/EP-Robot-tf_tree.png)
+
+EP Robot `tf_tree`
+
+![EP-Robot-tf_tree](./assets/named_axis.png)
+
+Robot frame axes:
+
+<!-- <div data-zone-id="0" data-line-index="0" style="white-space: pre;"> -->
+
+Coordinate system | Description | Origin according to `/base_link` (m)
+-- | -- | --
+`/base_link` | The robot center coordinate system is located at the center of the four Mecanum wheels, <br>and the height is on the plane where the centers of the four Mecanum wheels are located. | X Front Y Left Z Upper
+`/laser_link` | Lidar coordinate | (0.12, 0, 0.1)
+`/imu_link` | IMU coordinate | (0, 0, 0.08)
+`/arm_link` | The base coordinate system of the robot arm | (0, 0, 0.1)
+`/camera_bottom_screw_frame` | Realsense camera base screw positioning hole coordinate system, <br>as the standard for other coordinate systems of the camera | (0.15, 0, 0.0125)
+`/camera_link` | Realsense camera coodinate | (0.16, 0.0175, 0.025)
+`/camera_depth_frame` | Depth coordinate of Realsense camera, sharing the same space with`/camera_link` | (0.16, 0.0175, 0.025)
+`/camera_color_frame` | RGB coordinate of Realsense camera | (0.16, 0.0325, 0.025)
+`/camera_aligned_depth_to_color_frame` | the coordinate of Realsense Depth image aligned to RGB coordinate, <br>sharing the same space with `/camera_color_frame` | (0.16, 0.0325, 0.025)
+
+<!-- </div> -->
+
+`/base_link`
+
+​Robot center coordinate system, located at the center point of the 4 Mecanum wheel.
+
+`/imu_link`
+
+​IMU coordinate system, the same as `base_link`.
+
+`/laser_link`
+
+​2D LiDAR coordinate system, located at the centrer front of the vehicle.
+
+
 ## Equipped Sensors on EP
 
 |Type|Model|Parameters|
@@ -25,7 +80,7 @@
 
 The real environment are shown as above, along with the reference systems of the world and the EP.
 
-The relative position of initial position of EP in the world reference is $(4.2, 0, 3.5)$.
+The relative position of initial position of EP in the world reference is $(3.97, 0, 3.58)$.
 
 
 ## ROS topics 

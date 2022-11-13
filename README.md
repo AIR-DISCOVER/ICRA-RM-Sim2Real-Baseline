@@ -163,7 +163,7 @@ By default, the cubes are arranged in the same way of [RM Sim2Real 2022](https:/
 To place the cubes at random positions: 
 
 ```shell
-rostopic pub -1 /reset geometry_msgs/Point "x: 0.0
+docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rostopic pub -1 /reset geometry_msgs/Point "x: 0.0
 y: 0.0
 z: 0.0"
 ```
@@ -173,7 +173,7 @@ z: 0.0"
 To place the cubes at manually specified positions: (The `PoseArray` should have 5 entries)
 
 ```shell
-rostopic pub -1 /pose_set geometry_msgs/PoseArray "header:
+docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rostopic pub -1 /pose_set geometry_msgs/PoseArray "header:
   seq: 0.0
   stamp:.0
     secs: 0
@@ -250,12 +250,11 @@ A `Dockerfile` is included in this repository. To build a newer client image, ex
 docker build . -t client-custom:latest
 ```
 
-By default, the codes for controling are located in `src/`. When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
+By default, the codes for controling are located in `src/` (`src/` in this repo). When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
 
 Inside the image, `/opt/ep_ws` is the ROS workspace directory. Later in the dockerfile, `catkin_make` is run in this directory.
 
-
-The entry for the client is fixed to `start.sh` in the root of repo. When the image is building, this script is copied to `/opt/start.sh` and serves as the main entry for the client. The content of this file can be changed arbitrarily to suit the requirements, but the name of the script should not be changed.
+The entry for the client is fixed to `start.sh` in the root of repo. When the image is building, this script is copied to `/opt/start.sh` and serves as the main entry for the client. The content of this file can be changed arbitrarily to suit the requirements,** but the name of the script (`start.sh`) should not be changed**.
 
 If additional apt and pip requirements are needed in the newer image, please modify `Dockerfile` to obtain these packages at compile time.
 
@@ -296,6 +295,13 @@ docker push docker.discover-lab.com:55555/[username]/client:[tag]
 ```
 
 You may find the testing result of your image [here](http://103.242.175.254:11011).
+
+### Copy files from/to server/client containers
+
+You may refer to [this page](https://docs.docker.com/engine/reference/commandline/cp/) for copying files between containers and the host.
+
+Normally when you need to update sources in the containers, you should change the source codes in this repo and refer to [this part](#build-an-updated-client-image) to build an update image.
+Directly copying files into containers should be used for debugging only.
 
 ## Routines
 

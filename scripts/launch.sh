@@ -5,7 +5,7 @@ CLI_EXE=$@
 
 xhost +
 
-docker pull $SERVER_IMAGE
+# docker pull $SERVER_IMAGE
 
 docker network create net-sim
 
