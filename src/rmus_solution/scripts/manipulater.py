@@ -116,7 +116,7 @@ class manipulater:
             flag = 0
             y_threshold_p = 0.018
             y_threshold_n = 0.018
-            x_dis_tar = 0.30
+            x_dis_tar = 0.385
             while not rospy.is_shutdown():
                 target_marker_pose = self.current_marker_poses
                 if target_marker_pose is None:
@@ -172,11 +172,12 @@ class manipulater:
                     pose = Pose()
                     pose.position.x = 0.19
                     pose.position.y = -0.08
+                    self.sendBaseVel([0.25, 0.0, 0.0])
+                    rospy.sleep(0.3)
+                    self.sendBaseVel([0.0, 0.0, 0.0])
+                    rospy.sleep(1.0)
                     self.arm_position_pub.publish(pose)
                     rospy.sleep(1.0)
-                    # self.sendBaseVel([0.25, 0.0, 0.0])
-                    # rospy.sleep(0.3)
-                    self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.loginfo("Place: reach the goal for placing.")
                     break
                 adjust_time += 0.0333
@@ -205,7 +206,7 @@ class manipulater:
             flag = 0
             y_threshold_p = 0.018
             y_threshold_n = 0.018
-            x_dis_tar = 0.30
+            x_dis_tar = 0.385
 
             while not rospy.is_shutdown():
                 target_marker_pose = self.current_marker_poses
@@ -250,10 +251,10 @@ class manipulater:
                     rospy.loginfo("Trim well in the all dimention, going open loop")
                     self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.sleep(1.0)
-                    # self.sendBaseVel([0.25, 0.0, 0.0])
-                    # rospy.sleep(0.3)
-                    # self.sendBaseVel([0.25, 0.0, 0.0])
-                    # rospy.sleep(0.3)
+                    self.sendBaseVel([0.25, 0.0, 0.0])
+                    rospy.sleep(0.3)
+                    self.sendBaseVel([0.25, 0.0, 0.0])
+                    rospy.sleep(0.3)
                     self.sendBaseVel([0.0, 0.0, 0.0])
                     rospy.loginfo("Place: reach the goal for placing.")
                     break
@@ -320,3 +321,4 @@ if __name__ == "__main__":
     rospy.init_node("manipulater_node", anonymous=True)
     rter = manipulater()
     rospy.spin()
+

@@ -30,7 +30,7 @@ def pose_aruco_2_ros(rvec, tvec):
 
 
 class Processor:
-    def __init__(self, initial_mode=0, verbose=True, save=False) -> None:
+    def __init__(self, initial_mode=0, verbose=True) -> None:
         self.current_mode = initial_mode
         self.collapsed = False
         self.verbose = verbose
@@ -434,6 +434,6 @@ class Processor:
 if __name__ == "__main__":
     rospy.init_node("image_node", anonymous=True)
     load_template()
-    rter = Processor(initial_mode=0, verbose=True, save=True)
+    rter = Processor(initial_mode=5, verbose=False)
     rospy.loginfo("Image thread started")
     rospy.spin()
