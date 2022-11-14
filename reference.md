@@ -209,7 +209,7 @@ z: 0.0"
 
 |Name|Type|Description|
 |:-|:-|:-|
-|`/pose/cube_N`|`geometry_msgs/Pose`|The position of the ores.<br />The mineral ore numbered with `N` start from 1 to 5, e.g. `/pose/cube_1`<br />|
+|`/pose/cube_N`|`geometry_msgs/Pose`|The position of the minerals.<br />The mineral mineral numbered with `N` start from 1 to 5, e.g. `/pose/cube_1`<br />|
 |`/position/target_N`|`geometry_msgs/Point`|The position of the exchange stations.<br />The Exchange Station numbered with `N`, ordering from left to right as 1/2/3.<br /> For example, `/pose/target_1` corresponds to the place information of the leftmost Exchange Station:|
 |`/judgement/exchange_markers`|`std_msgs/String`|The marker digits of the exchange stations in the format of `data: "3, 5, 2"`<br / >For debug only.|
-|`/judgement/markers_time`|`std_msgs/String`|The time of placing the mineral ore in the right exchange station, in the format of `data: "0, None, 102.366459608078"`.<br />Defined as:<br /> `nan`: waiting for the client<br />`0`: client EP robot has moved but the ore is not placed in exchange station<br />`[float]`: elapsed time of the ore get placed <br />`None`: hit the exchange station, or the ores are not put in the right exchange station.<br />For debug only.|
+|`/judgement/markers_time`|`std_msgs/String`|The time of placing the mineral mineral in the right exchange station, in the format of `data: "0, None, 102.366459608078"`.<br />Defined as:<br /> `nan`: waiting for the client<br />`0`: client EP robot has moved but the mineral is not placed in exchange station<br />`[float]`: elapsed time of the mineral get placed <br />`None`: hit the exchange station, or the minerals are not put in the right exchange station.<br />For debug only.|

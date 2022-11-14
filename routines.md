@@ -16,7 +16,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 
    ![](./assets/carto-nav.png)
 
-## Detect a Cube
+## Detect a Mineral
 
 1. Launch a node for detection and grasping:
 
@@ -59,7 +59,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
    docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 0"
    ```
 
-## Grasp a Cube
+## Grasp a Mineral
 
 1. Launch a node for detection and grasping:
 
@@ -67,23 +67,23 @@ Before proceeding, you should follow instructions in [this section](./README.md#
    scripts/shell.sh roslaunch rmus_solution manipulate.launch
    ```
 
-2. Move the EP [with keyboard](#cartographer-navigation) towards the front face of a cube
+2. Move the EP [with keyboard](#cartographer-navigation) towards the front face of a mineral
 
    ![](./assets/cube-front.png)
 
-3. Invoke vision service to locate the cube
+3. Invoke vision service to locate the mineral 
    
    ```shell
    docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 5"
    ```
 
-   > The parameter `3` corresponds to the digit 3 on the cube to grasp.
+   > The parameter `3` corresponds to the digit 3 on the mineral to grasp.
 
-   After calling the service, the digits on the cube should be detected and visualized on the `image_view` output:
+   After calling the service, the digits on the mineral should be detected and visualized on the `image_view` output:
 
    ![](./assets/cube-front-digits.png) 
 
-4. Grasp the cube
+4. Grasp the mineral
 
    ```shell
    MODE=1
@@ -99,8 +99,8 @@ Before proceeding, you should follow instructions in [this section](./README.md#
    > > |Value|Specification|
    > > |:-:|:-:|
    > > | `0` | Robot arm reset |
-   > > | `1` | Grasp the cube in front of the EP |
-   > > | `2` | Place the cube at hand into the check station   |
+   > > | `1` | Grasp the mineral in front of the EP |
+   > > | `2` | Place the mineral at hand into the check station   |
    > 
    > `call`: Usused, default value is empty string. You can use this parameters in your method. 
 
@@ -110,7 +110,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
    
    ![](./assets/check-front-2.png)
 
-6. Find the target box to place the grasped cube:
+6. Find the target box to place the grasped mineral:
 
    ```shell
    docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /image_processor_switch_mode "mode: 7"
@@ -120,7 +120,7 @@ Before proceeding, you should follow instructions in [this section](./README.md#
 
    ![](./assets/check-front-2-digits.png)
 
-7. Place the cube in the box
+7. Place the mineral in the box
    
    ```shell
    docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rosservice call /let_manipulater_work "mode: 2

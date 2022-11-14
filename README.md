@@ -147,7 +147,7 @@ Control reference:
 * `4`: Open gripper
 * `Ctrl + C`: Stop listening keyboard inputs
 
-### Display the timer for placing cubes
+### Display the timer for placing minerals
 
 `judging.sh` invokes `rostopic echo` which prints the `/judgement/markers_time` on the screen:
 
@@ -155,12 +155,12 @@ Control reference:
 scripts/judging.sh
 ```
 
-### Set the positions of cubes
+### Set the positions of minerals
 
-We provide ROS interfaces for manually placing the cubes in the simulated environment.
-By default, the cubes are arranged in the same way of [RM Sim2Real 2022](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real).
+We provide ROS interfaces for manually placing the minerals in the simulated environment.
+By default, the minerals are arranged in the same way of [RM Sim2Real 2022](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real).
 
-To place the cubes at random positions: 
+To place the minerals at random positions: 
 
 ```shell
 docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rostopic pub -1 /reset geometry_msgs/Point "x: 0.0
@@ -168,13 +168,13 @@ y: 0.0
 z: 0.0"
 ```
 
-The x, y, and z values represent the index numbers of the ores to be exchanged.
+The x, y, and z values represent the index numbers of the minerals to be exchanged.
 
 If the values of x, y, and z are not between 1 and 5 or the same, they will be set randomly.
 
 ![random_pose](./assets/random_pose.png)
 
-To place the cubes at manually specified positions: (The `PoseArray` should have 5 entries)
+To place the minerals at manually specified positions: (The `PoseArray` should have 5 entries)
 
 ```shell
 docker exec -it client /opt/ros/noetic/env.sh /opt/workspace/devel_isolated/env.sh /opt/ep_ws/devel/env.sh rostopic pub -1 /pose_set geometry_msgs/PoseArray "header:
