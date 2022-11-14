@@ -168,6 +168,10 @@ y: 0.0
 z: 0.0"
 ```
 
+The x, y, and z values represent the index numbers of the ores to be exchanged.
+
+If the values of x, y, and z are not between 1 and 5 or the same, they will be set randomly.
+
 ![random_pose](./assets/random_pose.png)
 
 To place the cubes at manually specified positions: (The `PoseArray` should have 5 entries)
@@ -228,6 +232,8 @@ poses:
 
 "
 ```
+
+If the number of poses is less than five or if the pose is invalid, it will be set to a random value.
 
 ![specified_pose](./assets/specified_pose.png)
 
