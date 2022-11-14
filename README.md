@@ -51,7 +51,7 @@ The interfaces between server and client are defined by ROS topics and the detai
 
 ### Client
 
-In this repo, we provide a baseline method for this task. A functional image can be obtained by [building the image](#build-an-updated-client-image) or pulling `docker.discover-lab.com:55555/rm-sim2real/client:v1.0.1`.
+In this repo, we provide a baseline method for this task. A functional image can be obtained by [building the image](#build-an-updated-client-image) or pulling `tb5zhh/icra-2023-client:latest`.
 
 Note that, due to the hardware resource constraints on EP, launched client should be limited to use less than 6 CPUs and 8192MB memory. These constraints are imposed by `--cpus=5.6 -m 8192M` arguments in `launch.sh`. Do not remove them during developing, or online testing performance may be significantly lower than local testing.
 
