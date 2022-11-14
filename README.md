@@ -281,7 +281,7 @@ RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple scipy
 
 ### Submit the image
 
-Submitting images requires registering for the ICRA Robomaster Sim2Real challenges. Please [sign up]() before proceeding.
+Submitting images requires registering for the ICRA Robomaster Sim2Real challenges. Please [sign up](https://air.tsinghua.edu.cn/robomaster/sim2real_icra23.html) before proceeding.
 
 If you wish to submit the image for online testing, please first tag your built image as:
 
