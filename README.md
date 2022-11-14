@@ -2,15 +2,15 @@
 
 ## Hardware - EP
 
-The [RoboMaster EP](https://www.dji.com/cn/robomaster-ep) is an autonomous vehicle platform equipped with a 4 axis palletizing robot arm and an encircling gripper for flexible gripping action, inspired from DJI's annual RoboMaster robotics competition. It provides Mecanum wheel omnidirectional movement, fast wireless data link system including realtime video stream, and open sdk for further development and programming.
+The [RoboMaster EP](https://www.dji.com/cn/robomaster-ep) is an autonomous vehicle platform equipped with a 4-axis palletizing robot arm and an encircling gripper for flexible gripping action, inspired by DJI's annual RoboMaster robotics competition. It provides Mecanum wheel omnidirectional movement, a fast wireless data link system including a real-time video stream, and an open SDK for further development and programming.
 
-In order to match the theme of Sim2Real, we equip the RoboMaster EP with an external computing platform (NUC), as well as additional sensors including **onboard lidar** and **RGB-D cameras** for the purposes of better perception of the environment.
+In order to match the theme of Sim2Real, we equip the RoboMaster EP with an external computing platform (NUC), as well as additional sensors, including **onboard lidar** and **RGB-D cameras**, for better perception of the environment.
 
-An external computing platform is also prepared to communicate with EPs through RoboMaster EP SDK. This platform is dedicated to run real applications in both simulated and real environments.
+An external computing platform is also prepared to communicate with EPs through the RoboMaster EP SDK. This platform is dedicated to running real applications in both simulated and real environments.
 
 ![group](assets/group.png)
 
-The specification of the equipped NUC is listed as follow:
+The specifications of the equipped NUC are listed as follows:
 
 | Model      | CPU        | RAM     | SSD     |
 |  :--------------------: | :----------------------: | :----------------------: | :----------------------: |
@@ -45,17 +45,17 @@ This part serves as the communication pivot in ROS systems.
 
 ### Server
 
-In phase 1, the task is performed in the simulated scene. Therefore, we build a digital twin of the testing scene in reality with `habitat-sim` and `habitat-lab`. This digital twin contains a refined simulation of the test ground used in later phase, as well as the simulation of the EP itself.
+In stage 1, the task is performed in the simulated scene. Therefore, we build a digital twin of the testing scene in reality with `habitat-sim` and `habitat-lab`. This digital twin contains a refined simulation of the testing ground used in the later stage as well as the simulation of the EP itself.
 
-The interfaces between server and client are defined by ROS topics and the detailed definitions can be found [here](./reference.md).
+The interfaces between the server and client are defined by ROS topics, and detailed definitions can be found [here](./reference.md).
 
 ### Client
 
 In this repo, we provide a baseline method for this task. A functional image can be obtained by [building the image](#build-an-updated-client-image) or pulling `tb5zhh/icra-2023-client:latest`.
 
-Note that, due to the hardware resource constraints on EP, launched client should be limited to use less than 6 CPUs and 8192MB memory. These constraints are imposed by `--cpus=5.6 -m 8192M` arguments in `launch.sh`. Do not remove them during developing, or online testing performance may be significantly lower than local testing.
+Note that, due to the hardware resource constraints on EP, a launched client should be limited to using less than 6 CPUs and 8192MB memory. These constraints are imposed by the `--cpus=5.6 -m 8192M` arguments in `launch.sh. Do not remove them during development, or online testing performance may be significantly lower than local testing.
 
-The baseline image (and potentially the images you built) is based on the base image `docker.discover-lab.com:55555/rm-sim2real/client-base:v1.4.0`. Basic functional units (e.g. [keyborad control]()) is included in this base image. Please refer to [this repo](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real-Client) for further information on the base image.
+The baseline image (and potentially the images you built) is based on the base image `docker.discover-lab.com:55555/rm-sim2real/client-base:v1.4.0`. Basic functional units (e.g. [keyboard control](#manually-control-ep-with-keyboard)) are included in this base image. Please refer to [this repo](https://github.com/AIR-DISCOVER/ICRA-RM-Sim2Real-Client) for further information on the base image.
 
 ## How-to
 
@@ -67,7 +67,7 @@ The launching script `launch.sh` will create the docker network, the communicati
 scripts/launch.sh
 ```
 
-You can use change the images used by specifying the environment variables `SERVER_IMAGE` and `CLIENT_IMAGE`:
+You can change the images used by specifying the environment variables `SERVER_IMAGE` and `CLIENT_IMAGE`:
 
 ```shell
 # Suppose your client image is client-test:latest
@@ -76,7 +76,7 @@ CLIENT_IMAGE=client-test:latest scripts/launch.sh
 
 This is especially useful when you are launching with the client image you built locally. 
 
-By default if the launching is successful, three `image_view` windows and one `cartographer` window would appear on the screen:
+By default, if the launch is successful, three `image-view` windows and one `cartographer` window would appear on the screen:
 
 ![demo-launch](assets/launch-vis.png)
 
@@ -84,9 +84,9 @@ By default if the launching is successful, three `image_view` windows and one `c
 
 ### Launch server and create client container without running
 
-If you wish to launch the simulation server and then create the client container without automatically starting the game, execute `launch.sh` with additional start-point.
+If you wish to launch the simulation server and then create the client container without automatically starting the game, execute `launch.sh` with an additional start-point.
 
-This is typically used for debugging before launching indivivual components of the client:
+This is typically used for debugging before launching individual components of the client:
 
 ```shell
 scripts/launch.sh bash
@@ -247,7 +247,7 @@ Click the remote development button in the left-bottom corner and then select "A
 
 ![demo-vscode-dev-container](assets/container-extension-select.png)
 
-Then choose the running client container (i.e. `/client`) and then open the folder `/opt/ep_ws/src`. Now you should be able to make changes to the files inside the docker directly.
+Then choose the running client container (i.e., `/client`) and then open the folder `/opt/ep_ws/src`. Now you should be able to make changes directly to the files inside the docker.
 
 Note that any changes made in this way **DOES NOT** persist. Once the container is stopped and removed, changes will be lost. It is suggested to use the shell for debugging only and use `docker build` (see [build the container](#build-the-container)) for persistent changes.
 
@@ -260,7 +260,7 @@ A `Dockerfile` is included in this repository. To build a newer client image, ex
 docker build . -t client-custom:latest
 ```
 
-By default, the codes for controling are located in `src/` (`src/` in this repo). When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
+By default, the codes for controlling are located in `src/` (`src/` in this repo). When building a client image, all codes under `src/` will be copied to `/opt/ep_ws/src/rmus_solution` in the image. 
 
 Inside the image, `/opt/ep_ws` is the ROS workspace directory. Later in the dockerfile, `catkin_make` is run in this directory.
 
@@ -310,7 +310,7 @@ You may find the testing result of your image [here](http://103.242.175.254:1101
 
 You may refer to [this page](https://docs.docker.com/engine/reference/commandline/cp/) for copying files between containers and the host.
 
-Normally when you need to update sources in the containers, you should change the source codes in this repo and refer to [this part](#build-an-updated-client-image) to build an update image.
+Normally, when you need to update sources in the containers, you should change the source codes in this repo and refer to [this part](#build-an-updated-client-image) to build an updated image.
 Directly copying files into containers should be used for debugging only.
 
 ## Routines
