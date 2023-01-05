@@ -289,22 +289,36 @@ RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple scipy
 
 Submitting images requires registering for the ICRA Robomaster Sim2Real challenges. Please [sign up](https://air.tsinghua.edu.cn/robomaster/sim2real_icra23.html) before proceeding.
 
-If you wish to submit the image for online testing, please first tag your built image as:
+After registration, you will be authorized the access to our [docker registry](https://docker.discover-lab.com:55555). We will provide these infomation:
+
+* `username`: registry login username
+* `password`: initial registry login password. Change it asap on the [website](https://docker.discover-lab.com:55555)
+* `project name`: the project name of your team in the registry, which corresponds to your team name
+* `inquire hash`: url suffix for results inquiry. detailed later
+
+If you wish to submit the image for online testing, please first log in:
 
 ```shell
-# Suppose your image has the name of `client-custom` and tag `latest`
-docker tag client-custom:latest docker.discover-lab.com:55555/[username]/client:[tag]
+docker login docker.discover-lab.com:55555
 ```
 
-Replace `[username]` with your username during registration and replace `[tag]` with any tag you like. Note that, images whose name are not `client` will be ignored by the online testing system.
+You will be prompted to enter your username and password, which are the same as the username and password of the [registry](https://docker.discover-lab.com:55555).
+
+Then, build your image:
+
+```shell
+CLIENT_IMAGE=docker.discover-lab.com:55555/[project_name]/client:[tag] bash scripts/build.sh
+```
+
+Replace `[project_name]` with your project name in the registry. To request a simulation test, `[tag]` should starts with `sim-`. To request a real test, `[tag]` should starts with `real-`. Note that, images whose name are not `client` will be ignored by the online testing system.
 
 After that, push your image to our registry:
 
 ```shell
-docker push docker.discover-lab.com:55555/[username]/client:[tag]
+docker push docker.discover-lab.com:55555/[project_name]/client:[tag]
 ```
 
-You may find the testing result of your image [here](http://103.242.175.254:11011).
+You may find the testing result of your images on `https://sim2real.discover-lab.com:11011/list/[inquire_hash]`. 
 
 ### Copy files from/to server/client containers
 
