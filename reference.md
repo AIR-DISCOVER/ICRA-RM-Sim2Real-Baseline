@@ -13,7 +13,7 @@ The user should test the development in the `client` image at first.
 To show the static TF tree:
 
 ```bash
-scripts/shell.sh roslaunch ep_descreption ep_description.launch
+scripts/shell.sh roslaunch ep_description ep_description.launch
 ```
 
 <!-- # 2. Hardware interface -->
