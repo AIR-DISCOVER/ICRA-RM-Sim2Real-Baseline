@@ -70,7 +70,7 @@ Coordinate system | Description | Origin according to `/base_link` (m)
 | :------------------------: | :------------------------------------------------------------: |
 | chassis velocity control | $0.1m/s\leq\|v_x\|\leq0.5m/s$ <br>$0.1m/s\leq\|v_y\|\leq0.5m/s$ <br>$0.01rad/s\leq\|v_{th}\|\leq0.5rad/s$ |
 | chassis position control | $\|x\| \geq 0.1m$ <br>$\|y\| \geq 0.1m$ <br>$\|\theta\| \geq 0.1rad$ |
-| arm end position control | while $0.09\leq x \leq 0.18$, should keep $y\ge 0.08$ <br>while $x>0.18$, should keep $y\ge -0.02$ |
+| arm end position control | while $0.09\leq x \leq 0.18$, should keep $y\ge 0.08$ <br>while $x>0.18$, should keep $y\ge -0.08$ |
 | gripper control          | $x=1$ close gripper <br>$x=0$ open gripper                   |
 
 ## Environment and Coordinates Systems
